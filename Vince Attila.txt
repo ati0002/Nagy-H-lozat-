@@ -1,0 +1,52 @@
+1.  mysql> select fovaros from orszagok where orszag="MADAGASZKÁR";  ANTANANARIVO
+2.  mysql> select orszag from orszagok where fovaros="OUAGADOUGOU";  BURKINA FASO
+3.  mysql> select orszag from orszagok where autojel="TT";  TRINIDAD ÉS TOBAGO
+4.  mysql> select orszag from orszagok where penzjel="SGD";  SZINGAPÚR
+5.  mysql> select orszag from orszagok where telefon=61 ; AUSZTRÁLIA
+6.  mysql> select terulet from orszagok where fovaros="Monaco";  1.95
+7.  mysql> select nepesseg from orszagok where orszag="Málta";    392
+8.  mysql> select nepesseg/terulet*1000 as nepesseg from orszagok where orszag="Japán";   342.3031
+9.  mysql> select sum(nepesseg) as Föld from orszagok ;    7076338
+10. mysql> select sum(terulet) as Összes from orszagok ;    133598224.66
+11. mysql> select avg(nepesseg) as Átlag from orszagok ;   36475.9691
+12. mysql> select avg(terulet) as Átlag from orszagok ;    688650.642577
+13. mysql> select sum(nepesseg) / sum(terulet)*1000 as Földsur from orszagok ;   52.9673
+14. mysql> select orszag from orszagok where terulet>1000000 ;   29
+15. mysql> select orszag from orszagok where terulet<100 ;    5
+16. mysql> select orszag from orszagok where terulet>1000000 ; 143
+17. mysql> select orszag from orszagok where terulet<100 or nepesseg<20000 ; 143
+18. mysql> select orszag from orszagok where terulet between 50000 and 150000 ;  35
+19. mysql> select count(orszag) from orszagok where nepesseg*1000 between 8000000 and 12000000 ;   23
+20. mysql> fovaros from orszagok where nepesseg*1000>20000000; Madrid
+21. mysql> select orszag from orszagok where nepesseg/terulet*1000>500; 12
+22. mysql> select count(orszag) from orszagok where allamforma="köztársaság";  76
+23. mysql> select orszag from orszagok where penznem="kelet-karib dollár"; 6
+24. mysql> select count(orszag) from orszagok where orszag like "%Orszag%"; 17
+25. mysql> select sum(orszag) from orszagok where penznem like"%korona%"; 5
+26. mysql> select sum(terulet) from orszagok where foldr_hely like "%Európa%" ;  6003122.36
+27. mysql> select sum(nepesseg) from orszagok where foldr_hely like "%Európa%" ;   611609
+28. mysql> select sum(nepesseg/terulet*1000) from orszagok where foldr_hely like "%Európa%" ;  24093.7124
+29. mysql> select orszag from orszagok where foldr_hely like "%afri%" ; 53
+30. mysql> select sum(nepesseg) from orszagok where foldr_hely like"%Afrika%";  1011582
+31. mysql> select sum(nepesseg/terulet*1000) from orszagok where foldr_hely like"%Afrika%"; 4013.3340
+32. mysql> select orszag from orszagok where foldr_hely like "%sziget%";  19
+33. mysql> select orszag,allamforma from orszagok where allamforma="hercegség" or allamforma="királyság" ; 2
+34. mysql> select orszag,autojel from orszagok where autojel like ""; 9
+35. mysql> select orszag,valtopenz from orszagok where not valtopenz=100; 7
+36. mysql> select count(*) from orszagok where terulet < (select terulet from orszagok where orszag="Magyarorszag"); 86
+37. mysql> select orszag,terulet from orszagok where terulet =(select max(terulet) from orszagok) ; 17075400.00
+38. mysql> select orszag,terulet from orszagok where terulet =(select min(terulet) from orszagok) ; 0.44 
+39. mysql> select nepesseg,orszag from orszagok where nepesseg =(select max(nepesseg) from orszagok) ; 1381000 KÍNA
+40. mysql> select nepesseg,orszag from orszagok where nepesseg =(select min(nepesseg) from orszagok) ; 1 VATIKÁN
+41. mysql> select orszag,nepesseg/terulet*1000  from orszagok where (nepesseg/terulet*1000) =(select max(nepesseg/terulet*1000) from orszagok)  15384.6154
+42. mysql> select orszag,nepesseg/terulet*1000  from orszagok where (nepesseg/terulet*1000) =(select min(nepesseg/terulet*1000) from orszagok)   1.6933
+43. mysql> select orszag,terulet from orszagok where foldr_hely like "%afrika%" order by terulet  limit 1 ;  SEYCHELLE-SZIGETEK
+44. mysql> select orszag,nepesseg from orszagok where foldr_hely like "%amerika%" order by nepesseg limit 1 ; SAINT KITTS ÉS NEVIS
+45. mysql> select orszag,nepesseg/terulet*1000 as nepsuruseg from orszagok where foldr_hely not like "%városállam%" and foldr_hely not like "%törpeállam%" order by nepsuruseg desc;  188
+46. mysql> select fovaros,nepesseg from orszagok order by nepesseg desc limit 6 ; 6
+47. mysql> select fovaros,gdp from orszagok order by gdp desc limit 10 ; 10
+48. mysql> select orszag,gdp*nepesseg from orszagok order by gdp*nepesseg desc limit 10 ; 10
+49. mysql> select orszag,gdp from orszagok order by gdp  limit 2 ; 2
+50. mysql> select orszag,terulet from orszagok order by terulet limit 39,1; VANUATU
+51. mysql> select orszag,terulet from orszagok order by terulet limit 14,1; 
+52. mysql> select orszag,terulet from orszagok order by terulet desc limit 60,1
