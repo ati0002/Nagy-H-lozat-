@@ -22,19 +22,19 @@ keddi_tantargyak = [item["tantargy"] for item in valami2 if "Kedd" in item["napo
 print("Kedden a következő tantárgyak vannak:", keddi_tantargyak)
 
 #2
-"""
+
 c=0
 b=5
 for ora in valami2:
     for asd in ora["jegyek"]:
         c += int(asd)
-        if c==0:
-            print
-        else:
-            atlag=c/len(ora["jegyek"])
-            c=0
-            if atlag < b:
-                b =atlag
+    if c==0:
+        print
+    else:
+        atlag=c/len(ora["jegyek"])
+        c=0
+        if atlag < b:
+            b =atlag
 print(b)
 """
 osszeg=0
@@ -50,7 +50,7 @@ for ora in valami2:
         if atlag < kis:
             kis =atlag
 print(kis)     
-        
+"""
         
 
 
