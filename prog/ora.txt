@@ -1,6 +1,6 @@
-Idegen_nyelv:angol 5 igen Szerda 5,4,5,5,4
-Munkavállalóidegen_nyelv 2 igen Kedd 5
-IKT_projektmunka_II. 2 igen Kedd 5,5
-Hálózat_programozásésIoT 5 nem Hétfő,Kedd,Csütörtök 4,2
-Hálózatok_II. 10 igen Csütörtök,Péntek 3,4,5,5,4
-Szerverekés_felhőszolgáltatások 9 igen Hétfő,Kedd,Csütörtök 5,5
+Idegen_nyelv:angol,5,igen,Szerda,5 4 5 5 4
+Munkavállalóidegen_nyelv,2,igen,Kedd,
+IKT_projektmunka_II.,2,igen,Kedd,5 5
+Hálózat_programozásésIoT,5,nem,Hétfő Kedd Csütörtök,4 2
+Hálózatok_II.,10,igen,Csütörtök Péntek,3 4 5 5 4
+Szerverekés_felhőszolgáltatások,9,igen,Hétfő Kedd Csütörtök,5 5
