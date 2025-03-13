@@ -2,8 +2,11 @@ import gspread
 import requests
 
 gc = gspread.service_account(filename='cread.json')
-valasz =requests.get("https://catfact.ninja/facts")
-macsk = valasz.json()
+macsk=[]
+for i in range(0, 17):
+    valasz =requests.get("https://catfact.ninja/fact")
+    csak=valasz.json()
+    macsk.append(csak)
 
 #kimeno = gc.create('vince.17')
 kimeno = gc.open('vince.17')
@@ -25,13 +28,8 @@ def kiiratas(oszlop,megoldas,):
 #
 
 adat=[]
-for i in macsk['data']:
-    fact = i['fact']
-    mondatok = fact.split('. ')
-    for mondat in mondatok:
-        if mondat:
-            adat.append([mondat.strip()])
-            
+for i in macsk:
+    adat.append([i['fact']])
 kiiratas('A',adat)
 
 #
@@ -51,16 +49,14 @@ kiiratas('B', megold)
 #3. feladat
 #
 
-szo = []
-szo2 = []
-for mondat in szavak:
-    for x in mondat:
-        if x not in szo: 
-            szo.append(x) 
+szo=[]
+szo2=[]
+for i in szavak:
+    if i not in szo:
+        szo.append(i)
 for i in szo:
     szo2.append([i])
-
-kiiratas('C', szo2)
+kiiratas('C',szo2)
 
 #
 #4. feladat
@@ -70,17 +66,14 @@ elofordulasok = []
 
 for i in szo:
     elofordulas = 0
-    for x in szavak:
-        for y in x:
-            if y == i:
-                elofordulas += 1
+    for mondat in adat:  
+        for szo_mondatban in mondat[0].split():  
+            if szo_mondatban == i:  
+                elofordulas += 1  
     elofordulasok.append([elofordulas])
 
 kiiratas('D', elofordulasok)
 
-#
-#5. feladat
-#
 
 #
 # 5. feladat
@@ -89,18 +82,18 @@ kiiratas('D', elofordulasok)
 legn_gyak = 0
 leggyakszo = []
 
-for i in szo:  # A "szo" lista tartalmazza az egyedi szavakat
+for i in szo:  
     gyakorisag = 0
-    for x in szavak:  # "szavak" lista tartalmazza az összes szót
+    for x in szavak:  
         for y in x:
             if y == i:
                 gyakorisag += 1
 
     if gyakorisag > legn_gyak:
         legn_gyak = gyakorisag
-        leggyakszo = [[i]]  # Új lista létrehozása az új maximumhoz
+        leggyakszo = [[i]]  
     elif gyakorisag == legn_gyak:
-        leggyakszo.append([i])  # Hozzáadjuk a listához, ha ugyanannyi
+        leggyakszo.append([i])  
 
 kiiratas('E', leggyakszo)
 
