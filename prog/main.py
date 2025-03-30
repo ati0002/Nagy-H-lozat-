@@ -1,78 +1,95 @@
-ures=[]
-with open("ora.txt","r",encoding="utf-8") as forras:
-    for sor in forras:
-        ures.append(sor.strip())
+import gspread
+import requests
 
-valami1={}
-valami2=[]
-for elem in ures:
-    valami1_ures=elem.split(",")
-    valami1["tantargy"]=valami1_ures[0]
-    valami1["oraszam"]=valami1_ures[1]
-    if valami1_ures[2] =="igen":
-        valami1["volte"] = True
-    else:
-        valami1["volte"] = False
-    valami1["napok"] = valami1_ures[3].split()
-    valami1["jegyek"] = valami1_ures[4].split()
-    valami2.append(valami1)
-    valami1={} 
-#1
-keddi_tantargyak = [item["tantargy"] for item in valami2 if "Kedd" in item["napok"]]
-print("Kedden a következő tantárgyak vannak:", keddi_tantargyak)
+gc = gspread.service_account(filename='cread.json')
+macsk = []
+for i in range(0, 17):
+    valasz = requests.get("https://catfact.ninja/fact")
+    csak = valasz.json()
+    macsk.append(csak)
 
-#2
-
-c=0
-b=5
-for ora in valami2:
-    for asd in ora["jegyek"]:
-        c += int(asd)
-    if c==0:
-        print
-    else:
-        atlag=c/len(ora["jegyek"])
-        c=0
-        if atlag < b:
-            b =atlag
-print(b)
-"""
-osszeg=0
-kis= 5
-for ora in valami2:
-    for jegyek in ora["jegyek"]:
-        osszeg += int(jegyek)
-    if osszeg == 0:
-        print
-    else:
-        atlag=osszeg/len(ora["jegyek"])
-        osszeg = 0
-        if atlag < kis:
-            kis =atlag
-print(kis)     
-"""
-        
+# kimeno = gc.create('vince.17')
+kimeno = gc.open('vince.17')
+# kimeno.share("smurfac00@gmail.com", perm_type="user", role="writer")
+sheet = kimeno.worksheet('Sheet1')
+sheet.clear()
 
 
-#3
-hany=0
+def kiiratas(oszlop, megoldas):
+    sheet = kimeno.worksheet("Sheet1")
+    try:
+        sheet.update(megoldas, f"{oszlop}1")
+    except:
+        sheet.update([megoldas], f"{oszlop}1")
 
-if valami2[0]["volte"] ==True:
-    hany+=1
-if valami2[1]["volte"] ==True:
-    hany+=1
-if valami2[2]["volte"] ==True:
-    hany+=1   
-if valami2[3]["volte"] ==True:
-    hany+=1
-if valami2[4]["volte"] ==True:
-    hany+=1
-if valami2[5]["volte"] ==True:
-    hany+=1
-print(hany)
+#
+# 1. feladat
+#
+#(jó)
 
-#4
-for i in range(100,0,-1):
-    for tantargy in valami2:
-        if len(tantargy["jegyek"])==i:
-            print(f"Tantárgy: {tantargy['tantargy']}, Jegyek száma: {len(tantargy['jegyek'])}")
+adat = []
+for i in macsk:
+    adat.append([i['fact']])
+kiiratas('A', adat)
+
+
+#
+# 2. feladat
+#
+#(jó)
+
+sor = []
+szavak = []
+for i in adat:
+    for mondat in i:
+        szavak.append(mondat.split(' '))
+for i in range(0, len(szavak)):
+    sor.append([len(szavak[i])])
+kiiratas('B', sor)
+
+
+#
+# 3. feladat
+#
+#(elvileg jó) 
+
+szo = []
+szo2 = []
+for i in szavak:
+    for x in i:
+        if x not in szo:
+            szo.append(x)
+for i in szo:
+    szo2.append([i])
+kiiratas('C', szo2)
+
+
+#
+# 4. feladat
+#
+#(jó)
+
+elofordulasok = []
+for i in szo:
+    elofor = 0  
+    for x in szavak:
+        for y in x:
+            if y == i:
+                elofor += 1
+    elofordulasok.append([elofor])  
+
+kiiratas('D', elofordulasok)
+
+#
+# 5. feladat
+#
+#(elvilge jó)
+legyszak = []
+szam0 = 0
+for i in elofordulasok:
+    if i[0] > szam0:
+        szam0 = i[0]
+for i in range(len(elofordulasok)):
+    if elofordulasok[i][0] == szam0:
+        legyszak.append([szo[i]])
+kiiratas('E', legyszak)
